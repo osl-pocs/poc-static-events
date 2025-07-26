@@ -1,0 +1,69 @@
+{# theme/base.html #}
+{% set base_url = base_url or '' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title or config.site_name }}</title>
+
+  {# --- Built-in MkDocs CSS + any plugin assets --- #}
+  {{ css|safe }}
+
+  {# --- Extra CSS declared in mkdocs.yml --- #}
+  {% for css_file in config.extra_css %}
+    <link rel="stylesheet" href="{{ base_url }}{{ css_file }}">
+  {% endfor %}
+
+  {# --- Hook for child templates (e.g. main.html) --- #}
+  {% block extrahead %}{% endblock %}
+</head>
+
+<body>
+  <!-- ===== Header & Navigation ===== -->
+  <header class="site-header">
+    <a class="site-title" href="{{ base_url }}">{{ config.site_name }}</a>
+
+    <!-- mobile burger -->
+    <input id="nav-toggle" class="nav-toggle" type="checkbox" aria-label="Toggle navigation">
+    <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+
+    <nav class="site-nav">
+      <ul>
+        {% for item in nav %}
+          <li><a href="{{ item.url|url }}">{{ item.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== Main page content ===== -->
+  <main class="site-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <p>© <span id="year"></span> {{ config.site_name }} · Built with MkDocs</p>
+    <script>
+      /* Put build-independent current year into the span */
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+
+  {# --- Built-in MkDocs JS (search etc.) --- #}
+  {{ js|safe }}
+
+  {# --- Extra JS from mkdocs.yml (React, Babel, your app.jsx, …) --- #}
+  {% for js_file in config.extra_javascript %}
+    {% if js_file.startswith('http') %}
+      <script src="{{ js_file }}"></script>
+    {% else %}
+      {# If it’s a .jsx file Babel will transpile on the fly #}
+      <script src="{{ base_url }}{{ js_file }}" {% if js_file.endswith('.jsx') %}type="text/babel"{% endif %}></script>
+    {% endif %}
+  {% endfor %}
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

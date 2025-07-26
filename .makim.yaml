@@ -1,0 +1,30 @@
+groups:
+  pages:
+    tasks:
+      pre-build:
+        help: pre-build step
+        backend: bash
+        run: |
+          mkdir -p build
+
+      build:
+        help: build the static page
+        hooks:
+          pre-run:
+            - task: pages.pre-build
+        run: |
+          rm -rf build/*
+          mkdocs build -f mkdocs.yaml --verbose --clean --strict
+
+      preview:
+        help: preview the web page dynamically
+        args:
+          run-pre-build:
+            help: Run pre-build task
+            type: bool
+            action: store_true
+        hooks:
+          pre-run:
+            - task: pages.pre-build
+              if: ${{ args.run_pre_build }}
+        run: mkdocs serve -f mkdocs.yaml --watch docs --watch theme

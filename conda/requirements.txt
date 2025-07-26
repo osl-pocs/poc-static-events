@@ -1,0 +1,3 @@
+mkdocs
+makim
+mkdocs-macros-plugin

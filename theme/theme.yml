@@ -1,0 +1,3 @@
+# Minimal file so MkDocs treats this directory as a theme
+static_templates:
+  - 404.html
