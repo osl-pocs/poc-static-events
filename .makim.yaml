@@ -26,5 +26,4 @@ groups:
         hooks:
           pre-run:
             - task: pages.pre-build
-              if: ${{ args.run_pre_build }}
-        run: mkdocs serve -f mkdocs.yaml --watch docs --watch theme
+        run: mkdocs serve -f mkdocs.yml --watch docs --watch theme

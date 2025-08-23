@@ -1,69 +1,90 @@
-{# theme/base.html #}
-{% set base_url = base_url or '' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title or config.site_name }}</title>
+{% set lang = (config.theme.language if config.theme and config.theme.language else "en") %}
+<!doctype html>
+<html lang="{{ lang }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
 
-  {# --- Built-in MkDocs CSS + any plugin assets --- #}
-  {{ css|safe }}
+    <!-- Inter font (modern, clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  {# --- Extra CSS declared in mkdocs.yml --- #}
-  {% for css_file in config.extra_css %}
-    <link rel="stylesheet" href="{{ base_url }}{{ css_file }}">
-  {% endfor %}
+    {# MkDocs extra CSS (Bootstrap, Icons, Leaflet, custom styles) #}
+    {% for path in config.extra_css %}
+      <link rel="stylesheet" href="{{ path | url }}">
+    {% endfor %}
 
-  {# --- Hook for child templates (e.g. main.html) --- #}
-  {% block extrahead %}{% endblock %}
-</head>
-
-<body>
-  <!-- ===== Header & Navigation ===== -->
-  <header class="site-header">
-    <a class="site-title" href="{{ base_url }}">{{ config.site_name }}</a>
-
-    <!-- mobile burger -->
-    <input id="nav-toggle" class="nav-toggle" type="checkbox" aria-label="Toggle navigation">
-    <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
-
-    <nav class="site-nav">
-      <ul>
-        {% for item in nav %}
-          <li><a href="{{ item.url|url }}">{{ item.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </nav>
-  </header>
-
-  <!-- ===== Main page content ===== -->
-  <main class="site-main">
-    {% block content %}{% endblock %}
-  </main>
-
-  <!-- ===== Footer ===== -->
-  <footer class="site-footer">
-    <p>© <span id="year"></span> {{ config.site_name }} · Built with MkDocs</p>
-    <script>
-      /* Put build-independent current year into the span */
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-  </footer>
-
-  {# --- Built-in MkDocs JS (search etc.) --- #}
-  {{ js|safe }}
-
-  {# --- Extra JS from mkdocs.yml (React, Babel, your app.jsx, …) --- #}
-  {% for js_file in config.extra_javascript %}
-    {% if js_file.startswith('http') %}
-      <script src="{{ js_file }}"></script>
-    {% else %}
-      {# If it’s a .jsx file Babel will transpile on the fly #}
-      <script src="{{ base_url }}{{ js_file }}" {% if js_file.endswith('.jsx') %}type="text/babel"{% endif %}></script>
+    {% if config.site_favicon %}
+      <link rel="icon" href="{{ config.site_favicon | url }}">
     {% endif %}
-  {% endfor %}
+  </head>
+  <body class="eh-body">
 
-  {% block scripts %}{% endblock %}
-</body>
+    <!-- Header / Navbar -->
+    <header class="eh-header position-sticky top-0 w-100 z-3">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg py-2">
+          <a class="navbar-brand d-flex align-items-center gap-2 fw-semibold" href="{{ nav.homepage.url | url }}">
+            <img src="{{ 'assets/img/logo.svg' | url }}" alt="{{ config.site_name }}" height="28">
+            <span>{{ config.site_name }}</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#eh-navbar" aria-controls="eh-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="eh-navbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="#featured">Featured</a></li>
+              <li class="nav-item"><a class="nav-link" href="#map">Map</a></li>
+              <li class="nav-item"><a class="nav-link" href="#search">Search</a></li>
+              {% if config.repo_url %}
+                <li class="nav-item"><a class="nav-link" href="{{ config.repo_url }}" target="_blank" rel="noopener"><i class="bi bi-github me-1"></i>Source</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero (simple, modern gradient) -->
+    <section class="eh-hero text-white text-center">
+      <div class="container py-5">
+        <h1 class="display-6 fw-semibold mb-2">{{ config.site_name }}</h1>
+        <p class="lead opacity-90 mb-0">{{ config.site_description }}</p>
+      </div>
+    </section>
+
+    <!-- Main content -->
+    <main class="eh-main">
+      <div class="container py-4">
+        {{ page.content }}
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="eh-footer py-4 text-center small text-muted">
+      <div class="container">
+        <div class="mb-2">
+          Built with <a href="https://www.mkdocs.org/" target="_blank" rel="noopener">MkDocs</a> ·
+          <a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap 5</a> ·
+          <a href="https://leafletjs.com/" target="_blank" rel="noopener">Leaflet</a>
+        </div>
+        <div>© {{ config.site_name }}</div>
+      </div>
+    </footer>
+
+    {# MkDocs extra JS (Bootstrap bundle, Leaflet, custom app & theme scripts) #}
+
+<!-- MkDocs runtime variables required by built-in scripts (e.g., search/main.js) -->
+<script>
+  var base_url = "{{ base_url }}";
+  var mkdocs_page_name = {{ (page.title if page and page.title else '404') | tojson }};
+  var mkdocs_page_input_path = {{ (page.file.src_path if page and page.file else '') | tojson }};
+  var mkdocs_page_url = {{ (page.url if page and page.url else '') | url | tojson }};
+</script>
+    {% for script in config.extra_javascript %}
+      <script src="{{ script | url }}"></script>
+    {% endfor %}
+  </body>
 </html>
