@@ -14,7 +14,7 @@ groups:
             - task: pages.pre-build
         run: |
           rm -rf build/*
-          mkdocs build -f mkdocs.yaml --verbose --clean --strict
+          mkdocs build -f mkdocs.yml --verbose --clean --strict
 
       preview:
         help: preview the web page dynamically
