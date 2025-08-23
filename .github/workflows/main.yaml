@@ -55,10 +55,10 @@ jobs:
           pre-commit install
           pre-commit run --all-file --verbose
 
-      # - name: Build the book
-      #   run: |
-      #     makim pages.build
-      #     echo "myurl.org" > build/CNAME
+      - name: Build the book
+        run: |
+          makim pages.build
+          # echo "myurl.org" > build/CNAME
 
       # Push the book's HTML to github-pages
       - name: GitHub Pages action
