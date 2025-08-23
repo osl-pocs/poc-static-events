@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Python La Paz Meetup",
+    "start_date": "2025-08-26",
+    "end_date": "2025-08-26",
+    "location": "La Paz, Bolivia",
+    "free_or_paid": "free",
+    "organization_url": "https://www.meetup.com/",
+    "logo": "assets/img/event-placeholder.svg",
+    "featured": true,
+    "lat": -16.4897,
+    "lng": -68.1193
+  },
+  {
+    "name": "Open Science Summit",
+    "start_date": "2025-09-07",
+    "end_date": "2025-09-09",
+    "location": "Geneva, Switzerland",
+    "free_or_paid": "paid",
+    "organization_url": "https://opensciencelabs.org/",
+    "logo": "assets/img/event-placeholder.svg",
+    "featured": true,
+    "lat": 46.2044,
+    "lng": 6.1432
+  },
+  {
+    "name": "Data Visualization Workshop",
+    "start_date": "2025-08-30",
+    "end_date": "2025-08-30",
+    "location": "Cochabamba, Bolivia",
+    "free_or_paid": "free",
+    "organization_url": "https://example.org/",
+    "logo": "assets/img/event-placeholder.svg",
+    "featured": false,
+    "lat": -17.413977,
+    "lng": -66.165322
+  },
+  {
+    "name": "AI for Public Health",
+    "start_date": "2025-09-22",
+    "end_date": "2025-09-24",
+    "location": "Zürich, Switzerland",
+    "free_or_paid": "paid",
+    "organization_url": "https://example.org/",
+    "logo": "assets/img/event-placeholder.svg",
+    "featured": true,
+    "lat": 47.3769,
+    "lng": 8.5417
+  },
+  {
+    "name": "Community Hack Night",
+    "start_date": "2025-08-20",
+    "end_date": "2025-08-22",
+    "location": "Santa Cruz de la Sierra, Bolivia",
+    "free_or_paid": "free",
+    "organization_url": "https://example.org/",
+    "logo": "assets/img/event-placeholder.svg",
+    "featured": false,
+    "lat": -17.7833,
+    "lng": -63.1821
+  },
+  {
+    "name": "Bioinformatics Study Group",
+    "start_date": "2025-08-25",
+    "end_date": "2025-08-25",
+    "location": "La Paz, Bolivia",
+    "free_or_paid": "free",
+    "organization_url": "https://example.org/",
+    "logo": "assets/img/event-placeholder.svg",
+    "featured": false,
+    "lat": -16.5,
+    "lng": -68.15
+  }
+]

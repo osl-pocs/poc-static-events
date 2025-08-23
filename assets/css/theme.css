@@ -1,0 +1,66 @@
+/* Theme overrides and modern flourishes */
+
+:root {
+  --eh-bg: #0b1020;
+  --eh-card-bg: #ffffff;
+  --eh-glass: rgba(255, 255, 255, 0.7);
+  --eh-border: rgba(255,255,255,0.2);
+  --eh-hero-start: #6f42c1;
+  --eh-hero-mid: #0d6efd;
+  --eh-hero-end: #20c997;
+  --eh-radius: 16px;
+}
+
+.eh-body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  background:
+    radial-gradient(60% 100% at 0% 0%, rgba(32,201,151,0.08) 0%, rgba(32,201,151,0) 60%),
+    radial-gradient(80% 80% at 100% 20%, rgba(13,110,253,0.08) 0%, rgba(13,110,253,0) 70%),
+    linear-gradient(180deg, #f8f9fa 0%, #f8f9fa 100%);
+  min-height: 100dvh;
+}
+
+/* Glassy sticky header */
+.eh-header {
+  backdrop-filter: saturate(1.8) blur(8px);
+  background: rgba(248,249,250,.7);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Gradient hero */
+.eh-hero {
+  background: linear-gradient(135deg, var(--eh-hero-start) 0%, var(--eh-hero-mid) 55%, var(--eh-hero-end) 100%);
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.2);
+}
+
+.eh-main .card,
+.event-card .card {
+  border: 0;
+  border-radius: var(--eh-radius);
+  box-shadow: 0 16px 48px rgba(20,20,20,0.08), 0 6px 14px rgba(20,20,20,0.06);
+}
+
+.event-card img {
+  border-top-left-radius: var(--eh-radius);
+  border-top-right-radius: var(--eh-radius);
+  height: 180px;
+  object-fit: cover;
+}
+
+.btn {
+  border-radius: 999px;
+}
+
+.badge-free { background: #198754; }
+.badge-paid { background: #dc3545; }
+
+#events-map {
+  border-radius: var(--eh-radius);
+  height: 460px;
+}
+
+/* Active nav on scroll */
+.nav-link.active {
+  color: #0d6efd !important;
+  font-weight: 600;
+}
