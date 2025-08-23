@@ -45,14 +45,9 @@ jobs:
           miniconda-version: "latest"
           environment-file: conda/dev.yaml
           channels: conda-forge,nodefaults
-          activate-environment: osl-web
+          activate-environment: poc-static-events
           auto-update-conda: true
           conda-solver: libmamba
-
-      - name: Install dependencies
-        run: |
-          poetry check
-          poetry install
 
       - name: Linter
         if: ${{ github.event_name == 'pull_request' }}
@@ -60,10 +55,10 @@ jobs:
           pre-commit install
           pre-commit run --all-file --verbose
 
-      - name: Build the book
-        run: |
-          makim pages.build
-          echo "telehealthcareai.org" > build/CNAME
+      # - name: Build the book
+      #   run: |
+      #     makim pages.build
+      #     echo "myurl.org" > build/CNAME
 
       # Push the book's HTML to github-pages
       - name: GitHub Pages action

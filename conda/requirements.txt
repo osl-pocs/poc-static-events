@@ -1,3 +1,4 @@
 mkdocs
 makim
 mkdocs-macros-plugin
+pre-commit
